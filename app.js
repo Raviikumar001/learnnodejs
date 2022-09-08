@@ -1,33 +1,70 @@
+// const {readFile } =    require('fs')
 
-// const http = require('http');
 
-// const server =http.createServer( (req, res)=> {
-//     console.log('request event');
-//     res.end('Hello world');
-// })
 
-// server.listen (5000,  ()=>{
-//     console.log('server running on port 3000');
-// })
+// const getText = (path) =>{
+//     return new Promise( (resolve, reject)=>{
+//         readFile( path, 'utf-8', (err,data)=>{
 
-const http = require('http');
+//             if(err)
+//             {
+//                 reject(err)
+//             }else{
+//                  resolve(data)
+//             }
+//         })
+        
 
-const server = http.createServer( (req, res )=> {
-    if(req.url === '/')
+//     })
+// }
+    
+
+// // getText('./content/first.txt').then (result => console.log(result)).catch(err => console.log(err));
+
+// const start = async()=>{
+//     try{
+//         const  first =  await getText('./content/first.txt');
+//         console.log(first);
+//     }
+//     catch(error){
+//         console.log(error);
+//     }
+//     }
+
+   
+
+
+// start();
+
+
+const {readFile} = require('fs');
+
+const getText = (path)=>{
+
+    return new Promise( (resolve, reject)=>{
+       readFile( path, 'utf-8', (err,data)=>
+       {
+
+         if(err)
+         {
+            reject(err);
+         }else{
+            resolve(data)
+         }
+       })
+        
+    } )
+
+}
+
+const start = async ()=>{
+    try{
+        const first = await getText('./content/first.txt');
+        console.log(first);
+    }catch(error)
     {
-        res.end('Home');
+        console.log(error);    
     }
-    if(req.url === '/about')
-    {
-        for(let i=0; i<1000; i++)
-        {
-            
-        }
-        res.end('About page');
-    }
-    res.end('Error Page');
-})
+}
 
-server.listen(5000, ()=>{
-    console.log('SERver started on port 5000');
-})
+start();

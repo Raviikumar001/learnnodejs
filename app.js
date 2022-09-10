@@ -47,18 +47,15 @@
 
 // }
 
-const { readFile, writeFile } = require("fs");
-const util = require("util");
+const { readFile, writeFile } = require("fs").promises;
 
-const readFilePromise = util.promisify(readFile);
-const writeFilePromise = util.promisify(writeFile);
 
 const start = async () => {
   try {
-    const frist = await readFilePromise("./content/first.txt", "utf-8");
-    const second = await readFilePromise("./content/second.txt", "utf-8");
+    const frist = await readFile("./content/first.txt", "utf-8");
+    const second = await readFile("./content/second.txt", "utf-8");
     console.log(frist, "", second);
-    await writeFilePromise('./content/mind.txt','Hello this a new file','utf-8');
+    await writeFile('./content/mind.txt','Hello this a new ','utf-8', {flag: 'a'});
   } catch (error) {
     console.log(error);
   }

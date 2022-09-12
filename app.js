@@ -47,18 +47,15 @@
 
 // }
 
-const { readFile, writeFile } = require("fs").promises;
+
+const EventEmitter = require('events');
+
+const customEmitter = new EventEmitter();
+
+customEmitter.on('response', ()=>{
+
+  console.log('data received'); 
+})
 
 
-const start = async () => {
-  try {
-    const frist = await readFile("./content/first.txt", "utf-8");
-    const second = await readFile("./content/second.txt", "utf-8");
-    console.log(frist, "", second);
-    await writeFile('./content/mind.txt','Hello this a new ','utf-8', {flag: 'a'});
-  } catch (error) {
-    console.log(error);
-  }
-};
-
-start();
+customEmitter.emit('response');

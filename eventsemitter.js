@@ -9,3 +9,7 @@ customEmitter.on('response', ()=>{
 
 
 customEmitter.emit('response');
+
+
+
+// creating server with events

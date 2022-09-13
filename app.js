@@ -1,61 +1,14 @@
-// const {readFile } =    require('fs')
 
-// const getText = (path) =>{
-//     return new Promise( (resolve, reject)=>{
-//         readFile( path, 'utf-8', (err,data)=>{
+const {createReadStream} = require('fs');
 
-//             if(err)
-//             {
-//                 reject(err)
-//             }else{
-//                  resolve(data)
-//             }
-//         })
+const stream = createReadStream('./content/big.txt', {
+  highWaterMark:9000,},
+);
 
-//     })
-// }
-
-// // getText('./content/first.txt').then (result => console.log(result)).catch(err => console.log(err));
-
-// const start = async()=>{
-//     try{
-//         const  first =  await getText('./content/first.txt');
-//         console.log(first);
-//     }
-//     catch(error){
-//         console.log(error);
-//     }
-//     }
-
-// start();
-
-// const getText = (path)=>{
-
-//     return new Promise( (resolve, reject)=>{
-//        readFile( path, 'utf-8', (err,data)=>
-//        {
-
-//          if(err)
-//          {
-//             reject(err);
-//          }else{
-//             resolve(data)
-//          }
-//        })
-
-//     } )
-
-// }
-
-
-const EventEmitter = require('events');
-
-const customEmitter = new EventEmitter();
-
-customEmitter.on('response', ()=>{
-
-  console.log('data received'); 
+stream.on('data', (data)=>{
+  console.log(data);
 })
 
-
-customEmitter.emit('response');
+stream.on('error',(error)=>{
+  console.log(error);
+})
